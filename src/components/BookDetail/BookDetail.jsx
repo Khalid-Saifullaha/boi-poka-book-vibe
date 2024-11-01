@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLoaderData, useParams } from 'react-router-dom';
+import { addToStoredList } from '../utility/addToDb';
 
 const BookDetail = () => {
 
@@ -11,6 +12,10 @@ const BookDetail = () => {
     const book = data.find(book => book.bookId === id)
     
     const {bookId: currentBookId,tags, bookName, author, rating, category,  image, review, totalPages,publisher,yearOfPublishing} = book;
+
+    const handleMarkAsRead = (id) => {
+        addToStoredList(id);
+    }
 
     return (
         <div className='grid lg:grid-cols-2 my-8 '>
@@ -42,7 +47,7 @@ const BookDetail = () => {
             <p>Rating: {rating}</p>
           </div>
             <div className='flex gap-10'>
-            <button className="btn btn-outline">Mark as Read</button>
+            <button onClick={()=>handleMarkAsRead(bookId)} className="btn btn-outline">Mark as Read</button>
             <button className="btn btn-accent text-white">Add to wish list</button>
             </div>
             </div>
